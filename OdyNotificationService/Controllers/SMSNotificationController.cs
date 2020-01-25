@@ -78,7 +78,9 @@ namespace OdyNotificationService.Controllers
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
                 INotificationService service = (INotificationService)Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
-                service.SendSMS(NotificationReq, NotificationResp);
+                NotificationResp = service.SendSMS(NotificationReq);
+                _logger.LogInformation("OTP Response: ", JsonConvert.SerializeObject(NotificationResp));
+
             }
             return NotificationResp;
         }

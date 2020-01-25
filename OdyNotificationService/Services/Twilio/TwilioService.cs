@@ -74,8 +74,9 @@ namespace OdyNotificationService.Services.Twilio
 
             return NotificationResponse;
         }
-        public void SendSMS(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse)
+        public NotificationResponse SendSMS(NotificationRequest NotificationRequest)
         {
+            NotificationResponse NotificationResponse = new NotificationResponse();
             try
             {
                 foreach (string phoneNumber in NotificationRequest.PhoneNumbers)
@@ -100,6 +101,7 @@ namespace OdyNotificationService.Services.Twilio
                 NotificationResponse.Exceptions.Add(te.Message);
                 NotificationResponse.IsSuccessful = false;
             }
+            return NotificationResponse;
         }
     }
 }
