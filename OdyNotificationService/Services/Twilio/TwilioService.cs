@@ -19,7 +19,7 @@ namespace OdyNotificationService.Services.Twilio
                 {
                     var verificationResource = VerificationResource.Create(
                         to: phoneNumber,
-                        channel: Enum.GetName(typeof(ServiceType), NotificationRequest.ServiceType),
+                        channel: Enum.GetName(typeof(ServiceType), NotificationRequest.ServiceType).ToLower(),
                         pathServiceSid: this.verificationSid
                     );
 
