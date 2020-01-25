@@ -18,15 +18,17 @@ namespace OdyNotificationService.Controllers
         /// </summary>
         /// <param name="NotificationReq"></param>
         [HttpPost("RequestOTP")]
-        public void RequestOTP(NotificationRequest NotificationReq)
+        public NotificationResponse RequestOTP(NotificationRequest NotificationReq)
         {
+            NotificationResponse NotificationResp = new NotificationResponse();
             if (NotificationReq != null)
             {
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
                 INotificationService service = (INotificationService) Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
-                service.RequestOTP(NotificationReq);
+                service.RequestOTP(NotificationReq, NotificationResp);
             }
+            return NotificationResp;
         }
     }
 }

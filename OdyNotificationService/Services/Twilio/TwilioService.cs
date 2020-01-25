@@ -10,9 +10,8 @@ namespace OdyNotificationService.Services.Twilio
 {
     public partial class Twilio : INotificationService
     {
-        public NotificationResponse RequestOTP(NotificationRequest NotificationRequest)
+        public void RequestOTP(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse)
         {
-            NotificationResponse NotificationResponse = new NotificationResponse();
             try
             {
                 foreach (string phoneNumber in NotificationRequest.PhoneNumbers)
@@ -30,14 +29,12 @@ namespace OdyNotificationService.Services.Twilio
                         NotificationResponse.Message.Add(verificationResource.Sid);
                     }
                 }
-                return NotificationResponse;
 
             }
             catch (TwilioException te)
             {
                 NotificationResponse.Exceptions.Add(te.Message);
                 NotificationResponse.IsSuccessful = false;
-                return NotificationResponse;
             }
         }
     }
