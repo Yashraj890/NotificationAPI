@@ -8,8 +8,8 @@ namespace OdyNotificationService.Services
 {
     public interface INotificationService
     {
-        void RequestOTP(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse);
-        void VerifyOTP(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse);
+        NotificationResponse RequestOTP(NotificationRequest NotificationRequest);
+        NotificationResponse VerifyOTP(NotificationRequest NotificationRequest);
         void SendSMS(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse); 
     }
 }
