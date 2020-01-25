@@ -55,5 +55,10 @@ namespace OdyNotificationService.Models
         /// Gets or sets the Api Properties.
         /// </summary>
         public ArrayList ApiProperties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the OTP Value.
+        /// </summary>
+        public String OTP { get; set; }
     }
 }
