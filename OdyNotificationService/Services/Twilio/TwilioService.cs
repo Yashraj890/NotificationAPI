@@ -10,15 +10,16 @@ namespace OdyNotificationService.Services.Twilio
 {
     public partial class Twilio : INotificationService
     {
-        public void RequestOTP(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse)
+        public NotificationResponse RequestOTP(NotificationRequest NotificationRequest)
         {
+            NotificationResponse NotificationResponse = new NotificationResponse();
             try
             {
                 foreach (string phoneNumber in NotificationRequest.PhoneNumbers)
                 {
                     var verificationResource = VerificationResource.Create(
                         to: phoneNumber,
-                        channel: Enum.GetName(typeof(ServiceType), NotificationRequest.ServiceType).ToLower(),
+                        channel: Enum.GetName(typeof(ServiceType), ServiceType.SMS).ToLower(),
                         pathServiceSid: this.verificationSid
                     );
 
@@ -36,18 +37,22 @@ namespace OdyNotificationService.Services.Twilio
                 NotificationResponse.Exceptions.Add(te.Message);
                 NotificationResponse.IsSuccessful = false;
             }
+
+            return NotificationResponse;
         }
-        public void VerifyOTP(NotificationRequest NotificationRequest, NotificationResponse NotificationResponse)
+
+        public NotificationResponse VerifyOTP(NotificationRequest NotificationRequest)
         {
+            NotificationResponse NotificationResponse = new NotificationResponse();
             try
             {
                 foreach (string phoneNumber in NotificationRequest.PhoneNumbers)
                 {
                     string OTP = NotificationRequest.OTP;
                     var verificationResource = VerificationCheckResource.Create(
-                    to: phoneNumber,
-                    code: OTP,
-                    pathServiceSid: this.verificationSid
+                        to: phoneNumber,
+                        code: OTP,
+                        pathServiceSid: this.verificationSid
                     );
 
                     if (verificationResource != null)
@@ -64,6 +69,8 @@ namespace OdyNotificationService.Services.Twilio
                 NotificationResponse.Exceptions.Add(te.Message);
                 NotificationResponse.IsSuccessful = false;
             }
+
+            return NotificationResponse;
         }
     }
 }

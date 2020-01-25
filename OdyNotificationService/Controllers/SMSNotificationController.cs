@@ -11,7 +11,7 @@ namespace OdyNotificationService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotificationController : ControllerBase
+    public class SMSNotificationController : ControllerBase
     {
         /// <summary>
         /// Request OTP
@@ -26,10 +26,11 @@ namespace OdyNotificationService.Controllers
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
                 INotificationService service = (INotificationService) Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
-                service.RequestOTP(NotificationReq, NotificationResp);
+                NotificationResp = service.RequestOTP(NotificationReq);
             }
             return NotificationResp;
         }
+
         /// <summary>
         /// Request OTP
         /// </summary>
@@ -43,7 +44,7 @@ namespace OdyNotificationService.Controllers
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
                 INotificationService service = (INotificationService)Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
-                service.VerifyOTP(NotificationReq, NotificationResp);
+                NotificationResp = service.VerifyOTP(NotificationReq);
             }
             return NotificationResp;
         }
