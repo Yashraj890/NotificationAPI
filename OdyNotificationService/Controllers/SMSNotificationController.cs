@@ -4,8 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OdyNotificationService.Models;
 using OdyNotificationService.Services;
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace OdyNotificationService.Controllers
 {
@@ -13,6 +17,15 @@ namespace OdyNotificationService.Controllers
     [ApiController]
     public class SMSNotificationController : ControllerBase
     {
+
+        private readonly ILogger<SMSNotificationController> _logger;
+
+        public SMSNotificationController(ILogger<SMSNotificationController> logger)
+        {
+            _logger = logger;
+            _logger.LogDebug(1, "NLog injected into SMSNotificationController");
+        }
+
         /// <summary>
         /// Request OTP
         /// </summary>
@@ -23,10 +36,12 @@ namespace OdyNotificationService.Controllers
             NotificationResponse NotificationResp = new NotificationResponse();
             if (NotificationReq != null)
             {
+                _logger.LogInformation("OTP Request: " + JsonConvert.SerializeObject(NotificationReq));
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
-                INotificationService service = (INotificationService) Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
+                INotificationService service = (INotificationService)Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
                 NotificationResp = service.RequestOTP(NotificationReq);
+                _logger.LogInformation("OTP Response: " + JsonConvert.SerializeObject(NotificationResp));
             }
             return NotificationResp;
         }
@@ -41,10 +56,12 @@ namespace OdyNotificationService.Controllers
             NotificationResponse NotificationResp = new NotificationResponse();
             if (NotificationReq != null)
             {
+                _logger.LogInformation("OTP Request: ", JsonConvert.SerializeObject(NotificationReq));
                 string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
                 Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
                 INotificationService service = (INotificationService)Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
                 NotificationResp = service.VerifyOTP(NotificationReq);
+                _logger.LogInformation("OTP Response: ", JsonConvert.SerializeObject(NotificationResp));
             }
             return NotificationResp;
         }
