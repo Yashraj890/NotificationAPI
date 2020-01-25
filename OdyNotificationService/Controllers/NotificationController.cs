@@ -47,5 +47,23 @@ namespace OdyNotificationService.Controllers
             }
             return NotificationResp;
         }
+        /// <summary>
+        /// Request OTP
+        /// </summary>
+        /// <param name="NotificationReq"></param>
+        [HttpPost("SendSMS")]
+        public NotificationResponse SendSMS(NotificationRequest NotificationReq)
+        {
+            NotificationResponse NotificationResp = new NotificationResponse();
+            if (NotificationReq != null)
+            {
+                string serviceAPI = Enum.GetName(typeof(NotificationAPI), NotificationReq.NotificationAPI);
+                Type instanceType = Type.GetType("OdyNotificationService.Services." + serviceAPI + "." + serviceAPI);
+                INotificationService service = (INotificationService)Activator.CreateInstance(instanceType, NotificationReq.ApiProperties);
+                service.SendSMS(NotificationReq, NotificationResp);
+            }
+            return NotificationResp;
+        }
+        
     }
 }
