@@ -32,22 +32,22 @@ namespace OdyNotificationService.Models
         public NotificationAPI NotificationAPI { get; set; }
 
         /// <summary>
-        /// Gets or sets the PhoneNumbers list
+        /// Gets or sets the PhoneNumbers list.
         /// </summary>
         public List<string> PhoneNumbers { get; set; }
 
         /// <summary>
-        /// Gets or sets the Emails list
+        /// Gets or sets the Emails list.
         /// </summary>
         public List<string> Emails { get; set; }
 
         /// <summary>
-        /// Gets or sets the Tokens list
+        /// Gets or sets the Tokens list.
         /// </summary>
         public List<string> Tokens { get; set; }
 
         /// <summary>
-        /// Gets or sets the Message
+        /// Gets or sets the Message.
         /// </summary>
         public string Message { get; set; }
 

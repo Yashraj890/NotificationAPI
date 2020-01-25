@@ -57,7 +57,9 @@ namespace OdyNotificationService.Models
         Twilio = 1,
     }
 
-
+    /// <summary>
+    /// Notification Request Status
+    /// </summary>
     public enum NotificationRequestStatus
     {
         /// <summary>
@@ -81,6 +83,9 @@ namespace OdyNotificationService.Models
         Error = 3
     }
 
+    /// <summary>
+    /// Notification Status
+    /// </summary>
     public enum NotificationStatus
     {
         /// <summary>
@@ -104,14 +109,29 @@ namespace OdyNotificationService.Models
         Error = 3
     }
 
+    /// <summary>
+    /// OTP Status
+    /// </summary>
     public enum OTPStatus
     {
+        /// <summary>
+        /// Default
+        /// </summary>
         None = 0,
 
+        /// <summary>
+        /// Wrong OTP
+        /// </summary>
         WrongOTP = 1,
 
+        /// <summary>
+        /// Matching OTP
+        /// </summary>
         MatchingOTP = 2,
 
+        /// <summary>
+        /// Expired OTP
+        /// </summary>
         ExpiredOTP = 3,
     }
 }
