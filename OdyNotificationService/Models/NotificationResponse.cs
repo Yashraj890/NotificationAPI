@@ -31,9 +31,9 @@ namespace OdyNotificationService.Models
         public List<string> Errors { get; set; } = new List<string>();
 
         /// <summary>
-        /// Gets or sets the Notification Service Errors list.
+        /// Gets or sets the Notification Service Exception.
         /// </summary>
-        public List<string> Exceptions { get; set; } = new List<string>();
+        public string Exceptions { get; set; }
 
         /// <summary>
         /// Gets or sets the Notification Service Message list.
