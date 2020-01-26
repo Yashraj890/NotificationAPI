@@ -10,5 +10,6 @@ namespace OdyNotificationService.Services
     {
         NotificationResponse RequestOTP(NotificationRequest NotificationRequest);
         NotificationResponse VerifyOTP(NotificationRequest NotificationRequest);
+        NotificationResponse SendSMS(NotificationRequest NotificationRequest); 
     }
 }
