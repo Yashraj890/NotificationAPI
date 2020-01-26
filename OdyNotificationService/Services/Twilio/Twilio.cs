@@ -16,11 +16,11 @@ namespace OdyNotificationService.Services.Twilio
 
         }
 
-        public Twilio(ArrayList ApiProperties)
+        public Twilio(ApiPropertiesCollection.ApiProperties ApiProperties)
         {
-            if (ApiProperties != null && ApiProperties.Count > 0)
+            if (ApiProperties != null && ApiProperties.Items.Count > 0)
             {
-                foreach (var item in ApiProperties)
+                foreach (var item in ApiProperties.Items)
                 {
                     var json = JObject.Parse(item.ToString());
 
