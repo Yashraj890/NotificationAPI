@@ -36,7 +36,7 @@ namespace OdyNotificationService.Services.Twilio
             }
             catch (TwilioException te)
             {
-                NotificationResponse.Exceptions.Add(te.Message);
+                NotificationResponse.Exceptions = te.Message;
                 NotificationResponse.IsSuccessful = false;
             }
 
@@ -68,7 +68,7 @@ namespace OdyNotificationService.Services.Twilio
             }
             catch (TwilioException te)
             {
-                NotificationResponse.Exceptions.Add(te.Message);
+                NotificationResponse.Exceptions = te.Message;
                 NotificationResponse.IsSuccessful = false;
             }
 
@@ -98,7 +98,7 @@ namespace OdyNotificationService.Services.Twilio
             }
             catch (TwilioException te)
             {
-                NotificationResponse.Exceptions.Add(te.Message);
+                NotificationResponse.Exceptions = te.Message;
                 NotificationResponse.IsSuccessful = false;
             }
             return NotificationResponse;
